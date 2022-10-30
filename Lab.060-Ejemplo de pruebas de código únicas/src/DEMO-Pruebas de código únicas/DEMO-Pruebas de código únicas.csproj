@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>DEMO_Pruebas_de_código_únicas</RootNamespace>
+  </PropertyGroup>
+
+</Project>
