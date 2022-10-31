@@ -2,7 +2,7 @@ using Demo_Teorias;
 
 namespace FactoriaDeMensajesTests;
 
-public class FactoríaDeMensajesTests
+public class FactoríaDeMensajesInlineDataTests
 {
     [Theory]
     [InlineData("Hola", 0)]
@@ -12,7 +12,7 @@ public class FactoríaDeMensajesTests
     [InlineData("De", 4)]
     [InlineData("Código", 5)]
     [InlineData("No se ha podido recuperar", 6)]
-    public void ObtenerMensaje_ShouldBeCorrectMessage(string expected, int code)
+    public void ObtenerMensaje_ShouldBeCorrectMessage_InlineData(string expected, int code)
     {
         //Arrange
 

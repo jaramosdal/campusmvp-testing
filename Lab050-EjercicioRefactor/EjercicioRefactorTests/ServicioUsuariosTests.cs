@@ -13,9 +13,9 @@ public class ServicioUsuariosTests
         var servicioUsuarios = new ServicioUsuarios(new ServicioLlamadas(new ServicioTelefonia()));
 
         //Act
-        servicioUsuarios.LlamarAlUsuario();
+        servicioUsuarios.LlamarAlUsuario(usuario);
 
         //Assert
-        
+
     }
 }
