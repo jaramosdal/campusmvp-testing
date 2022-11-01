@@ -7,13 +7,8 @@ namespace xUnit_Practicas1Tests;
 public class FactoriaDeColoresTests
 {
     [Theory]
-    [InlineData("Red", "rojo")]
-    [InlineData("Blue", "azul")]
-    [InlineData("Green", "verde")]
-    [InlineData("White", "blanco")]
-    [InlineData("Black", "negro")]
-    [InlineData("0", "something")]
-    public void GetColorByName_ShouldBeCorrectColor(string expected, string colorName)
+    [ClassData(typeof(FactoriaDeColoresTestsData))]
+    public void GetColorByName_ShouldBeCorrectColor(Color expected, string colorName)
     {
         //Arrange
         // string colorName = "";
@@ -22,7 +17,7 @@ public class FactoriaDeColoresTests
         var color = FactoriaDeColores.GetColorByName(colorName);
 
         //Assert
-        Assert.Equal(expected, color.Name);
+        Assert.Equal(expected, color);
     }
 
     //[Theory]
@@ -43,7 +38,7 @@ public class FactoriaDeColoresTests
     //}
 
     [Theory]
-    [MemberData(nameof(FactoriaDeColoresTestsData.InvalidData), MemberType = typeof(FactoriaDeColoresTestsData))]
+    [MemberData(nameof(FactoriaDeColoresGetColorCompositionTestsData.InvalidData), MemberType = typeof(FactoriaDeColoresGetColorCompositionTestsData))]
     public void GetColorComposition_ShouldThrowArgumentOutOfRangeException_IfAnyNotIn0To255(int red, int green, int blue)
     {
         //Arrange
@@ -60,7 +55,7 @@ public class FactoriaDeColoresTests
     }
 
     [Theory]
-    [MemberData(nameof(FactoriaDeColoresTestsData.ValidData), MemberType = typeof(FactoriaDeColoresTestsData))]
+    [MemberData(nameof(FactoriaDeColoresGetColorCompositionTestsData.ValidData), MemberType = typeof(FactoriaDeColoresGetColorCompositionTestsData))]
     public void GetColorComposition_ShouldBeCorrectColor_IfAllIn0To255(int red, int green, int blue)
     {
         //Arrange

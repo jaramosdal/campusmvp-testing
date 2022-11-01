@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace xUnit_Practicas1Tests.InputTestsData;
 
-//public class FactoriaDeColoresTestsData : TheoryData<int, int, int>
-//{
-//    public FactoriaDeColoresTestsData()
-//    {
-//        Add(-1, 0, 0);
-//        Add(256, 0, 0);
-//        Add(0, -1, 0);
-//        Add(0, 256, 0);
-//        Add(0, 0, -1);
-//        Add(0, 0, 256);
-//    }
-//}
+public class FactoriaDeColoresTestsData : TheoryData<Color, string>
+{
+    public FactoriaDeColoresTestsData()
+    {
+        Add(Color.Red, "rojo");
+        Add(Color.Blue, "azul");
+        Add(Color.Green, "verde");
+        Add(Color.White, "blanco");
+        Add(Color.Black, "negro");
+        Add(default, "something");
+    }
+}
 
-public class FactoriaDeColoresTestsData 
+public class FactoriaDeColoresGetColorCompositionTestsData
 {
     public static IEnumerable<object[]> InvalidData => new List<object[]>
     {
