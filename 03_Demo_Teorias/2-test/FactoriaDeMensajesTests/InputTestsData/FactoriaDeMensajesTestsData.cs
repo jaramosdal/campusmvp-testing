@@ -16,6 +16,32 @@ public class FactoriaDeMensajesTestsData : TheoryData<string, int>
     }
 }
 
+public class FactoriaDeMensajesData
+{
+    public static IEnumerable<object[]> Data => new List<object[]>
+    {
+        new object[] { "Hola", 0 },
+        new object[] { "Adiós", 1 },
+        new object[] { "CampusMVP", 2 },
+        new object[] { "Pruebas", 3 },
+        new object[] { "No se ha podido recuperar", -1 }
+    };
+
+    public static IEnumerable<object[]> GetData(int testCount)
+    {
+        var datos = new List<object[]>
+        {
+            new object[] { "Hola", 0 },
+            new object[] { "Adiós", 1 },
+            new object[] { "CampusMVP", 2 },
+            new object[] { "Pruebas", 3 },
+            new object[] { "No se ha podido recuperar", -1 }
+        };
+
+        return datos.Take(testCount);
+    }
+}
+
 // public class FactoriaDeMensajesTestsData : IEnumerable<object[]>
 // {
 //     public IEnumerator<object[]> GetEnumerator()
