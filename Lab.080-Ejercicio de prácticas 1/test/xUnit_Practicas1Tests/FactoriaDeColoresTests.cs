@@ -20,23 +20,6 @@ public class FactoriaDeColoresTests
         Assert.Equal(expected, color);
     }
 
-    //[Theory]
-    //[ClassData(typeof(FactoriaDeColoresTestsData))]
-    //public void GetColorComposition_ShouldThrowArgumentOutOfRangeException_IfAnyNotIn0To255(int red, int green, int blue)
-    //{
-    //    //Arrange
-    //    // string colorName = "";
-
-    //    //Act
-    //    Action act = () =>
-    //    {
-    //        var resultado = FactoriaDeColores.GetColorComposition(red, green, blue);
-    //    };
-
-    //    //Assert
-    //    Assert.Throws<ArgumentOutOfRangeException>(act);
-    //}
-
     [Theory]
     [MemberData(nameof(FactoriaDeColoresGetColorCompositionTestsData.InvalidData), MemberType = typeof(FactoriaDeColoresGetColorCompositionTestsData))]
     public void GetColorComposition_ShouldThrowArgumentOutOfRangeException_IfAnyNotIn0To255(int red, int green, int blue)
@@ -59,12 +42,14 @@ public class FactoriaDeColoresTests
     public void GetColorComposition_ShouldBeCorrectColor_IfAllIn0To255(int red, int green, int blue)
     {
         //Arrange
-        // string colorName = "";
 
         //Act
         var color = FactoriaDeColores.GetColorComposition(red, green, blue);
 
         //Assert
-        // TODO
+        Assert.True(red == color.R && green == color.G && blue == color.B);
+        //Assert.Equal(red, color.R);
+        //Assert.Equal(green, color.G);
+        //Assert.Equal(blue, color.A);
     }
 }

@@ -36,9 +36,7 @@ public class FactoriaDeColoresGetColorCompositionTestsData
     {
         new object[] { 0, 0, 0 },
         new object[] { 255, 0, 0 },
-        new object[] { 0, 0, 0 },
         new object[] { 0, 255, 0 },
-        new object[] { 0, 0, 0 },
         new object[] { 0, 0, 255 }
     };
 }
