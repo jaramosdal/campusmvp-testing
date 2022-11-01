@@ -1,5 +1,6 @@
 using Demo_Teorias;
 using FactoriaDeMensajesTests.InputTestsData;
+using FactoriaDeMensajesTests.DataAttributes;
 
 namespace FactoriaDeMensajesTests;
 
@@ -113,7 +114,7 @@ public class FactoríaDeMensajesTests
     }
 
     [Theory]
-    [CsvData()]
+    [CsvData("InputData.csv")]
     public void ObtenerMensaje_ShouldBeCorrectMessage_CsvData(string expected, int code)
     {
         //Arrange

@@ -25,4 +25,9 @@
     <ProjectReference Include="..\..\1-src\Demo_Teorias\Demo_Teorias.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="InputTestsData\InputData.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
