@@ -114,7 +114,7 @@ public class FactoríaDeMensajesTests
     }
 
     [Theory]
-    [CsvData("InputData.csv")]
+    [CsvData(@"InputTestsData/InputData.csv")]
     public void ObtenerMensaje_ShouldBeCorrectMessage_CsvData(string expected, int code)
     {
         //Arrange
