@@ -1,5 +1,6 @@
 using System.Drawing;
 using xUnit_Practicas1;
+using xUnit_Practicas1Tests.DataAttributes;
 using xUnit_Practicas1Tests.InputTestsData;
 
 namespace xUnit_Practicas1Tests;
@@ -51,5 +52,18 @@ public class FactoriaDeColoresTests
         //Assert.Equal(red, color.R);
         //Assert.Equal(green, color.G);
         //Assert.Equal(blue, color.A);
+    }
+
+    [Theory]
+    [JsonData(@"InputTestsData/InputData.json")]
+    public void ObtenerMensaje_ShouldBeCorrectMessage_JsonData(Color expected, int r, int g, int b)
+    {
+        //Arrange
+
+        //Act
+        var resultado = FactoriaDeColores.GetColorComposition(r, g, b);
+
+        //Assert
+        Assert.Equal(expected, resultado);
     }
 }

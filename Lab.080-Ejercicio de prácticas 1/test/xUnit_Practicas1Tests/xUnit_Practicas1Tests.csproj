@@ -25,4 +25,10 @@
     <ProjectReference Include="..\..\src\xUnit_Practicas1\xUnit_Practicas1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="InputTestsData\InputData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
