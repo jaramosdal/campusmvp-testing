@@ -30,7 +30,7 @@ public class FuncionalidadATests
         FuncionalidadA funcionalidadA = new();
 
         //Act
-        var result = funcionalidadA.FuncionalidadATrue();
+        var result = funcionalidadA.FuncionalidadAFalse();
 
         //Assert
         Assert.False(result);
