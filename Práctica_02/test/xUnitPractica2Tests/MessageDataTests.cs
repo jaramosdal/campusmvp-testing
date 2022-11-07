@@ -4,6 +4,7 @@ using xUnitPractica2.Entities;
 
 namespace xUnitPractica2Tests
 {
+    [Trait("Category", "Message")]
     public class MessageDataTests
     {
 
