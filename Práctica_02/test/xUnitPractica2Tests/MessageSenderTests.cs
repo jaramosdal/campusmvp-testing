@@ -15,17 +15,16 @@ namespace xUnitPractica2Tests;
 [Trait("Category", "Message")]
 public class MessageSenderTests
 {
-    private const int Port = 43256;
     private readonly IMessageSender _messageSender;
     private MessageData _messageDataRecived;
     public MessageSenderTests(TcpServerFixture tcpServerFixture)
     {
-        tcpServerFixture.ServidorTcp.Escuchar(Port);
         tcpServerFixture.ServidorTcp.DataReceived += (string message) => _messageDataRecived = JsonConvert.DeserializeObject<MessageData>(message);
-        _messageSender = new MessageSender(Port, IPAddress.Loopback);
+        _messageSender = new MessageSender(TcpServerFixture.MessageSenderPort, IPAddress.Loopback);
     }
 
-    [Fact(Skip = "No funciona")]
+    //[Fact(Skip = "No funciona")]
+    [Fact]
     public async Task SendMessageAsync_ShouldSendTheCorrectMessage()
     {
         //Arrange

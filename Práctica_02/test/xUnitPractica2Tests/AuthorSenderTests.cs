@@ -14,14 +14,12 @@ namespace xUnitPractica2Tests;
 [Trait("Category", "Author")]
 public class AuthorSenderTests
 {
-    private const int Port = 43257;
     private readonly IAuthorSender _authorSender;
     private Author _authorRecived;
     public AuthorSenderTests(TcpServerFixture tcpServerFixture)
     {
-        tcpServerFixture.ServidorTcp.Escuchar(Port);
         tcpServerFixture.ServidorTcp.DataReceived += (string message) => _authorRecived = JsonConvert.DeserializeObject<Author>(message);
-        _authorSender = new AuthorSender(Port, IPAddress.Loopback);
+        _authorSender = new AuthorSender(TcpServerFixture.AuthorSenderPort, IPAddress.Loopback);
     }
 
     [Fact]
