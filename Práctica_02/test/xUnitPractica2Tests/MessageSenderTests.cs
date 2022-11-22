@@ -13,14 +13,23 @@ namespace xUnitPractica2Tests;
 
 [Collection("TcpServer")]
 [Trait("Category", "Message")]
-public class MessageSenderTests
+public class MessageSenderTests : IDisposable
 {
     private readonly IMessageSender _messageSender;
+    private readonly TcpServerFixture _tcpServerFixture;
     private MessageData _messageDataRecived;
+
     public MessageSenderTests(TcpServerFixture tcpServerFixture)
     {
         tcpServerFixture.ServidorTcp.DataReceived += (string message) => _messageDataRecived = JsonConvert.DeserializeObject<MessageData>(message);
-        _messageSender = new MessageSender(TcpServerFixture.MessageSenderPort, IPAddress.Loopback);
+        _messageSender = new MessageSender(TcpServerFixture.Port, IPAddress.Loopback);
+        _tcpServerFixture = tcpServerFixture;
+        _tcpServerFixture.Escuchar();
+    }
+
+    public void Dispose()
+    {
+        _tcpServerFixture.Desconectar();
     }
 
     //[Fact(Skip = "No funciona")]

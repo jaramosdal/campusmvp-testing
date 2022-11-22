@@ -7,22 +7,24 @@ using xUnitPractica2Tests.Services;
 
 namespace xUnitPractica2Tests.Fixtures;
 
-public class TcpServerFixture : IDisposable
+public class TcpServerFixture
 {
     private readonly ServidorTcp _tcpServer;
-    internal const int MessageSenderPort = 43256;
-    internal const int AuthorSenderPort = 43257;
+    internal const int Port = 43256;
 
     internal ServidorTcp ServidorTcp => _tcpServer;
 
     public TcpServerFixture()
     {
         _tcpServer = new ServidorTcp();
-        _tcpServer.Escuchar(MessageSenderPort);
-        _tcpServer.Escuchar(AuthorSenderPort);
     }
 
-    public void Dispose()
+    public void Escuchar()
+    {
+        _tcpServer.Escuchar(Port);
+    }
+
+    public void Desconectar()
     {
         _tcpServer.Desconectar();
     }

@@ -12,14 +12,22 @@ namespace xUnitPractica2Tests;
 
 [Collection("TcpServer")]
 [Trait("Category", "Author")]
-public class AuthorSenderTests
+public class AuthorSenderTests : IDisposable
 {
     private readonly IAuthorSender _authorSender;
+    private readonly TcpServerFixture _tcpServerFixture;
     private Author _authorRecived;
     public AuthorSenderTests(TcpServerFixture tcpServerFixture)
     {
         tcpServerFixture.ServidorTcp.DataReceived += (string message) => _authorRecived = JsonConvert.DeserializeObject<Author>(message);
-        _authorSender = new AuthorSender(TcpServerFixture.AuthorSenderPort, IPAddress.Loopback);
+        _authorSender = new AuthorSender(TcpServerFixture.Port, IPAddress.Loopback);
+        _tcpServerFixture = tcpServerFixture;
+        _tcpServerFixture.Escuchar();
+    }
+
+    public void Dispose()
+    {
+        _tcpServerFixture.Desconectar();
     }
 
     [Fact]
