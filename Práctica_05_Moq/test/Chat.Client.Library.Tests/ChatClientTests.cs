@@ -35,6 +35,7 @@ public class ChatClientTests : IDisposable
         var mockUserApiClient = new Mock<IUserApiClient>();
         mockUserApiClient.Setup(apiUser => apiUser.LoginAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync((ChatUser)null);
         mockUserApiClient.Setup(apiUser => apiUser.LoginAsync("Usuario1", "P2ssw0rd!")).ReturnsAsync(new ChatUser { Name = "Usuario1", Password = "P2ssw0rd!" });
+        mockUserApiClient.Setup(apiUser => apiUser.LoginAsync("Usuario3", "P2ssw0rd!")).ReturnsAsync(new ChatUser { Name = "Usuario3", Password = "P2ssw0rd!" });
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync(It.IsAny<string>(), null)).ReturnsAsync((ChatUser)null);
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync(It.IsAny<string>(), "")).ReturnsAsync((ChatUser)null);
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync(null, It.IsAny<string>())).ReturnsAsync((ChatUser)null);
@@ -42,7 +43,10 @@ public class ChatClientTests : IDisposable
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync("Usuario1", "P2ssw0rd!")).ReturnsAsync(new ChatUser { Name = "Usuario1", Password = "P2ssw0rd!" });
         
         var mockChatApiClient = new Mock<IChatApiClient>();
-        
+        mockChatApiClient.Setup(apiChat => apiChat.GetChatMessagesAsync()).ReturnsAsync(messages);
+        mockChatApiClient.Setup(apiChat => apiChat.SendMessageAsync(It.IsAny<ChatMessage>())).ReturnsAsync(true);
+
+
         _chatClient = new ChatClient(mockChatApiClient.Object, mockUserApiClient.Object);
     }
 
