@@ -21,14 +21,20 @@ public class MessageSenderTests : IDisposable
 
     public MessageSenderTests(TcpServerFixture tcpServerFixture)
     {
-        tcpServerFixture.ServidorTcp.DataReceived += (string message) => _messageDataRecived = JsonConvert.DeserializeObject<MessageData>(message);
+        tcpServerFixture.ServidorTcp.DataReceived += MessageDataRecivedEventHandler;
         _messageSender = new MessageSender(TcpServerFixture.Port, IPAddress.Loopback);
         _tcpServerFixture = tcpServerFixture;
         _tcpServerFixture.Escuchar();
     }
 
+    private void MessageDataRecivedEventHandler(string message)
+    {
+        _messageDataRecived = JsonConvert.DeserializeObject<MessageData>(message);
+    }
+
     public void Dispose()
     {
+        _tcpServerFixture.ServidorTcp.DataReceived -= MessageDataRecivedEventHandler;
         _tcpServerFixture.Desconectar();
     }
 

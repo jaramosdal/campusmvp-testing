@@ -19,14 +19,20 @@ public class AuthorSenderTests : IDisposable
     private Author _authorRecived;
     public AuthorSenderTests(TcpServerFixture tcpServerFixture)
     {
-        tcpServerFixture.ServidorTcp.DataReceived += (string message) => _authorRecived = JsonConvert.DeserializeObject<Author>(message);
+        tcpServerFixture.ServidorTcp.DataReceived += AuthorDataRecivedEventHandler;
         _authorSender = new AuthorSender(TcpServerFixture.Port, IPAddress.Loopback);
         _tcpServerFixture = tcpServerFixture;
         _tcpServerFixture.Escuchar();
     }
 
+    private void AuthorDataRecivedEventHandler(string message)
+    {
+        _authorRecived = JsonConvert.DeserializeObject<Author>(message);
+    }
+
     public void Dispose()
     {
+        _tcpServerFixture.ServidorTcp.DataReceived -= AuthorDataRecivedEventHandler;
         _tcpServerFixture.Desconectar();
     }
 
