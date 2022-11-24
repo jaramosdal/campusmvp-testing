@@ -19,6 +19,8 @@ namespace Chat.Client.Library.Tests;
 public class ChatClientTests : IDisposable
 {
     private readonly IChatClient _chatClient;
+    private readonly IUserApiClient _userApiClient;
+    private readonly IChatApiClient _chatApiClient;
 
     public ChatClientTests()
     {
@@ -41,10 +43,12 @@ public class ChatClientTests : IDisposable
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync(null, It.IsAny<string>())).ReturnsAsync((ChatUser)null);
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync("", It.IsAny<string>())).ReturnsAsync((ChatUser)null);
         mockUserApiClient.Setup(apiUser => apiUser.CreateUserAsync("Usuario1", "P2ssw0rd!")).ReturnsAsync(new ChatUser { Name = "Usuario1", Password = "P2ssw0rd!" });
-        
+        _userApiClient = mockUserApiClient.Object;
+
         var mockChatApiClient = new Mock<IChatApiClient>();
         mockChatApiClient.Setup(apiChat => apiChat.GetChatMessagesAsync()).ReturnsAsync(messages);
         mockChatApiClient.Setup(apiChat => apiChat.SendMessageAsync(It.IsAny<ChatMessage>())).ReturnsAsync(true);
+        _chatApiClient = mockChatApiClient.Object;
 
 
         _chatClient = new ChatClient(mockChatApiClient.Object, mockUserApiClient.Object);
@@ -117,6 +121,7 @@ public class ChatClientTests : IDisposable
 
         //Assert
         Assert.True(result);
+        Mock.Get(_chatApiClient).Verify(apiChat => apiChat.SendMessageAsync(It.IsAny<ChatMessage>()), Times.Once);
     }
 
     [Fact]
@@ -145,6 +150,7 @@ public class ChatClientTests : IDisposable
 
         //Assert
         Assert.True(eventRecived);
+        Mock.Get(_chatApiClient).Verify(apiChat => apiChat.GetChatMessagesAsync(), Times.Once);
     }
 
     [Fact]
@@ -160,6 +166,8 @@ public class ChatClientTests : IDisposable
 
         //Assert
         Assert.True(eventRecived);
+        Mock.Get(_userApiClient).Verify(apiUser => apiUser.LoginAsync("Usuario3", "P2ssw0rd!"), Times.Once);
+        Mock.Get(_chatApiClient).Verify(apiChat => apiChat.GetChatMessagesAsync(), Times.Once);
     }
 
     [Fact]
@@ -175,6 +183,8 @@ public class ChatClientTests : IDisposable
 
         //Assert
         Assert.False(eventRecived);
+        Mock.Get(_userApiClient).Verify(apiUser => apiUser.LoginAsync("Usuario1", "P2ssw0rd!"), Times.Once);
+        Mock.Get(_chatApiClient).Verify(apiChat => apiChat.GetChatMessagesAsync(), Times.Once);
     }
 
     [Fact]
@@ -207,6 +217,8 @@ public class ChatClientTests : IDisposable
 
         //Assert
         Assert.False(eventRecived);
+        Mock.Get(_userApiClient).Verify(apiUser => apiUser.LoginAsync("Usuario1", "P2ssw0rd!"), Times.Once);
+        Mock.Get(_chatApiClient).Verify(apiChat => apiChat.GetChatMessagesAsync(), Times.Once);
     }
 
     public void Dispose()
